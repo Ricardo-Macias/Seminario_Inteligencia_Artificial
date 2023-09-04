@@ -1,15 +1,20 @@
 import matplotlib.pyplot as plt
+from matplotlib import cm
 import numpy as np
-from Actividad_1_algoritmos_clasicos_de_optimizacion.Metodo_Gradiente_Descendiente import plot_surf
-from Actividad_1_algoritmos_clasicos_de_optimizacion.Metodo_Gradiente_Descendiente import plot_contour
+
+from plot_contour import *
+from plot_surf import *
+
 from IPython import display
+from time import sleep
+
 
 f = lambda x, y: (x-2)**2 + (y-2)**2 #Cambiar funcion
 
 xl = np.array([-5,-5])
 xu = np.array([5,5])
 
-G = 500
+G = 100
 f_plot = np.zeros(G)
 mu, sigma = 0, 0.2
 

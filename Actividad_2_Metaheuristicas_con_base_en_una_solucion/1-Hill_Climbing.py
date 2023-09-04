@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from Actividad_1_algoritmos_clasicos_de_optimizacion.Metodo_Gradiente_Descendiente import plot_surf
-from Actividad_1_algoritmos_clasicos_de_optimizacion.Metodo_Gradiente_Descendiente import plot_contour
+from plot_contour import *
+from plot_surf import *
 from IPython import display
 
 
