@@ -5,7 +5,8 @@ from plot_surf import *
 from IPython import display
 
 
-f = lambda x, y : x * np.exp(-x**2-y**2)
+#f = lambda x, y : x * np.exp(-x**2-y**2) #Primera funcion
+f = lambda x, y: x**2 + y**2 #Segunda funcion
 
 
 xl = np.array([-5, -5])
@@ -30,9 +31,9 @@ for i in range(G):
     # plot_contour(f, x, y, xl, xu)
     f_plot[i] = f(x[0], x[1])
 
+print("Mínimo global en x=", x[0], " y=", x[1], " f(x,y)=", f(x[0], x[1]))
 plot_contour(f, x, y, xl, xu)
 plot_surf(f, x, xl, xu)
-print("Mínimo global en x=", x[0], " y=", x[1], " f(x,y)=", f(x[0], x[1]))
 
 plt.plot(range(G), f_plot)
 plt.title("Convergencia")

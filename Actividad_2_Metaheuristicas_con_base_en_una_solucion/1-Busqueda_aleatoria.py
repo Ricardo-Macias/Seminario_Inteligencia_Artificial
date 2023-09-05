@@ -9,10 +9,11 @@ from IPython import display
 from time import sleep
 
 
-f = lambda x, y: x * np.exp(-x**2-y**2) #(x-2)**2 + (y-2)**2 #Cambiar funcion
+#f = lambda x, y: x * np.exp(-x**2-y**2) #Primera funcion
+f = lambda x, y: x**2 + y**2 #Segunda funcion
 
-xl = np.array([-5,-5])
-xu = np.array([5,5])
+xl = np.array([-10,-10])
+xu = np.array([10,10])
 
 G = 500
 f_plot = np.zeros(G)
@@ -32,9 +33,9 @@ for i in range(G):
 
     f_plot[i] = f(x[0], x[1])
 
+print("Mínimo global en x=", x[0], " y=", x[1], " f(x,y)=", f(x[0], x[1]))
 plot_contour(f, x, y, xl, xu)
 plot_surf(f, x, xl, xu)
-print("Mínimo global en x=", x[0], " y=", x[1], " f(x,y)=", f(x[0], x[1]))
 
 plt.plot(range(G), f_plot)
 plt.title("Convergencia")
