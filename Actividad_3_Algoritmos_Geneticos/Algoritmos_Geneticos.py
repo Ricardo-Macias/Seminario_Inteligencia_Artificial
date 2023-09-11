@@ -1,4 +1,3 @@
-
 import matplotlib.pyplot as plt
 import numpy as np
 from IPython import display
@@ -20,6 +19,7 @@ def Seleccion(aptitud):
       idx = np.argmax(aptitud[I])
       n = I[idx]
       return n
+    
     elif rank:
       Idx = np.argsort(aptitud)
       Idx = Idx[::-1]
@@ -96,7 +96,10 @@ def Mutacion(y, pm, x=None, xu=None):
 
 
 # ---------------------->PARAMETROS
-def f(x, y): return np.abs(x)**2 + np.abs(y)**3
+#f = lambda x, y: np.abs(x)**2 + np.abs(y)**3
+f = lambda x, y: x * np.exp(-x**2-y**2) #primera funcion
+#f = lambda x, y: (x - 2)**2 + (y - 2)**2 #segunda funcion 
+
 
 
 xl = np.array([-5, -5])
