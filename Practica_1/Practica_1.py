@@ -97,9 +97,9 @@ for i in range(mu):
 
     # 1. Calcular los puntos xi transformados
     # Usar la función Transformación_Similitud
-    xp0 =
-    xp1 =
-    xp2 =
+    xp0 = Transformacion_Similitud(q, x0)
+    xp1 = Transformacion_Similitud(q, x1)
+    xp2 = Transformacion_Similitud(q, x2)
 
     # 2. Calcular errores entre xri y xpi
     # Usar la función Distancia_Euclidiana
