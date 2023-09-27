@@ -73,6 +73,7 @@ x2 = [w, h]
 #---------------------------------------------------------------
 # ----------> AQUI ELEGIR LA CONFIGURACIÓN ADECUADA <----------
 #---------------------------------------------------------------
+f = lambda x,y,z: ((x**2)+(y**2)+(z**2)/3) 
 
 xl = np.array([-5,-5 ,-5 ,-5 ])
 xu = np.array([5, 5, 5,5 ])
@@ -107,7 +108,7 @@ for i in range(mu):
     e1 = Distancia_Euclidiana(xr1, xp1)
     e2 = Distancia_Euclidiana(xr2, xr2)
 
-    fitness[i] =
+    fitness[i] = f(e0,e1,e2)
 
 for g in range(G):
    ## ------------ AQUÍ TU CÓDIGO ------------- ##
