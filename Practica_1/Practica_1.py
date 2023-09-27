@@ -4,6 +4,22 @@ import numpy as np
 #from google.colab.patches import cv2_imshow
 from IPython import display
 
+
+def Recombination(x1, x2):
+    n = np.size(x1)
+    y = np.zeros(n)
+    Tipo_Recomb = 0  # sexual discreta -> 1, sexual intermedia -> 0
+
+    for d in range(n):
+        if Tipo_Recomb == 1:
+            if np.random.randint(0, 2):
+                y[d] = x1[d]
+            else:
+                y[d] = x2[d]
+        else:
+            y[d] = 0.5 * (x1[d] + x2[d])
+    return y
+
 def Transformacion_Similitud(q, x):
     dx = q[0]
     dy = q[1]
@@ -112,6 +128,20 @@ for i in range(mu):
 
 for g in range(G):
    ## ------------ AQUÍ TU CÓDIGO ------------- ##
+
+   for i in range(l):
+    r1 = np.random.randint(mu)
+    r2 = r1
+
+    while r2 == r1:
+       r2 = np.random.randint(mu)
+    
+    x[:,mu+i] = Recombination(x[:, r1], x[:, r2])
+    sigma[:,mu+i] = Recombination(sigma[:,r1], sigma[:, r2])
+
+    r = np.random.normal(0, sigma[:, mu+i], D)
+    x[:,mu+i] = x[:,mu+i] + r
+    fitness[mu+i] = f(x[0, mu+i]. x[1, mu+i])
 
    ## ----------------------------------------- ##
 
