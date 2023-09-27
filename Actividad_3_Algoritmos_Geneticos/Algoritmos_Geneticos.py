@@ -8,7 +8,7 @@ from plot_surf import *
 def Seleccion(aptitud):
 
     # Solo elegir una de estas dos variantes
-    torneo = False
+    torneo = True
     rank = False
 
     if torneo:
@@ -61,7 +61,7 @@ def Seleccion(aptitud):
 # ---------------------->CRUZA
 def Cruza(x1, x2):
 
-  aritmetica = False
+  aritmetica = True
   if aritmetica:
     alpha = np.random.random()
     y1 = alpha * x1 + (1-alpha)*x2
@@ -81,7 +81,7 @@ def Cruza(x1, x2):
 
 # ---------------------->MUTACION
 def Mutacion(y, pm, x=None, xu=None):
-  normal = False
+  normal = True
 
   D, N = y.shape
 
@@ -97,13 +97,13 @@ def Mutacion(y, pm, x=None, xu=None):
 
 # ---------------------->PARAMETROS
 #f = lambda x, y: np.abs(x)**2 + np.abs(y)**3
-f = lambda x, y: x * np.exp(-x**2-y**2) #primera funcion
-#f = lambda x, y: (x - 2)**2 + (y - 2)**2 #segunda funcion 
+#f = lambda x, y: x * np.exp(-x**2-y**2) #primera funcion
+f = lambda x, y: (x - 2)**2 + (y - 2)**2 #segunda funcion 
 
 
 
-xl = np.array([-5, -5])
-xu = np.array([5, 5])
+xl = np.array([-4, -4])
+xu = np.array([4, 4])
 
 N = 50  # Población, debe ser par
 E = 10
@@ -112,8 +112,8 @@ G = 100
 pm = 0.01
 
 # ---------------------->ALGORITMOS GENETICOS
-algoritmo = 'ga'        # Clásico
-# algoritmo = 'elitism'  # Elitista
+#algoritmo = 'ga'        # Clásico
+algoritmo = 'elitism'  # Elitista
 
 
 x = np.zeros((D, N))
@@ -180,14 +180,11 @@ for i in range(N):
     else:
         aptitud[i] = 1 + abs(fx)
 
+print("Mínimo global en x=", x[0, i_mejor], " y=", x[1, i_mejor], " f(x,y)=", f(
+    x[0, i_mejor], x[1, i_mejor]))
 
 plt.plot(range(G), f_plot)
 i_mejor = np.argmax(aptitud)
 
 plot_surf(f, x, xl, xu, i_mejor)
 plot_contour(f, x, xl, xu)
-
-print("Mínimo global en x=", x[0, i_mejor], " y=", x[1, i_mejor], " f(x,y)=", f(
-    x[0, i_mejor], x[1, i_mejor]))
-
-

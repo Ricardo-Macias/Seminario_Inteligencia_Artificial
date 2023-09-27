@@ -20,5 +20,5 @@ def plot_contour(f, x, xl, xu):
     plt.scatter(x[0], x[1], marker="o",
                 facecolors='none', edgecolors='r', s=120)
 
-    plt.show(block=False)
+    plt.show()
     plt.pause(.05)

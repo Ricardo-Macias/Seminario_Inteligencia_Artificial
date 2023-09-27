@@ -20,20 +20,16 @@ def Recombination(x1, x2):
     return y
 
 
-def f(x, y): return x * np.exp(-x**2 - y**2)
+f = lambda x,y : x * np.exp(-x**2 - y**2)
 
+#f = lambda x, y: (x-2)**2 + (y-2)**2
+xl = np.array([-4, -4])
+xu = np.array([4, 4])
 
-xl = np.array([-2, -2])
-xu = np.array([2, 2])
-
-# f = lambda x, y: (x-2)**2 + (y-2)**2
-# xl = np.array([-5, -5])
-# xu = np.array([5, 5])
-
-G = 100
+G = 50
 D = 2
 mu = 30
-l = 50
+l = 60
 
 x = np.zeros((D, mu+l))
 sigma = np.zeros((D, mu+l))
@@ -47,7 +43,6 @@ for i in range(mu):
     fitness[i] = f(x[0, i], x[1, i])
 
 for g in range(G):
-    plot_contour(f, x[:, 0:mu], xl, xu)
 
     for i in range(l):
 
@@ -72,9 +67,10 @@ for g in range(G):
     p_plot[g] = np.min(fitness)
 
 Idx_b = np.argmin(fitness)
-plot_suft(f, x, xl, xu)
 print("Mínimo en x=", x[0, Idx_b], " y=", x[1, Idx_b],
       " f(x,y)=", f(x[0, Idx_b], x[1, Idx_b]))
+plot_suft(f, x, xl, xu)
+plot_contour(f, x[:, 0:mu], xl, xu)
 
 plt.plot(p_plot)
 plt.show()
