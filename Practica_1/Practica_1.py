@@ -70,18 +70,21 @@ x0 = [0, 0]
 x1 = [w, 0]
 x2 = [w, h]
 
+#---------------------------------------------------------------
 # ----------> AQUI ELEGIR LA CONFIGURACIÓN ADECUADA <----------
-xl = np.array([, , , ])
-xu = np.array([, , , ])
+#---------------------------------------------------------------
 
-G =
-mu =
-l =
-D =
+xl = np.array([-5,-5 ,-5 ,-5 ])
+xu = np.array([5, 5, 5,5 ])
 
-x =
-sigma =
-fitness =
+G = 100
+mu = 20 #padres
+l = 40 #hijos
+D = 2
+
+x = np.zeros((D, mu+l))
+sigma = np.zeros((D, mu+l))
+fitness = np.zeros(mu+l)
 
 p_plot = np.zeros(G)
 
