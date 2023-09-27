@@ -103,9 +103,9 @@ for i in range(mu):
 
     # 2. Calcular errores entre xri y xpi
     # Usar la función Distancia_Euclidiana
-    e0 =
-    e1 =
-    e2 =
+    e0 = Distancia_Euclidiana(xr0, xp0)
+    e1 = Distancia_Euclidiana(xr1, xp1)
+    e2 = Distancia_Euclidiana(xr2, xr2)
 
     fitness[i] =
 
