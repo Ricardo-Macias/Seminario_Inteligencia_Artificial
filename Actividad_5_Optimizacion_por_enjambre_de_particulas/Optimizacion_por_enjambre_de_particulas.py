@@ -5,9 +5,9 @@ from Plot_Surf import *
 from IPython import display
 
 #FUNCIONES OBJETIVO
-Griewank = 
-Rastrigin = 
-Sphere = 
+Griewank = lambda x,y: ((x**2/4000)+(y**2/4000))-(np.cos(x) * np.cos(y/np.sort(2))) + 1
+Rastrigin = lambda x,y: 10**2 + x**2 - 10*np.cos(2*np.pi*x) + y**2 - 10*np.cos(2*np.pi*y)
+Sphere = lambda x,y: x**2 + y**2
 
 xl = np.array([-5,-5])
 xu = np.array([5,5])
