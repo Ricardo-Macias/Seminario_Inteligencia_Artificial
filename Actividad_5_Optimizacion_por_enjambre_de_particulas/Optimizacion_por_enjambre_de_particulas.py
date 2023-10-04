@@ -6,7 +6,7 @@ from IPython import display
 
 #FUNCIONES OBJETIVO
 Griewank = lambda x,y: ((x**2/4000)+(y**2/4000))-(np.cos(x) * np.cos(y/np.sqrt(2))) + 1
-Rastrigin = lambda x,y: 10**2 + x**2 - 10*np.cos(2*np.pi*x) + y**2 - 10*np.cos(2*np.pi*y)
+Rastrigin = lambda x,y: 10*2 + x**2 + y**2 - 10*np.cos(2*np.pi*x) - 10*np.cos(2*np.pi*y)
 Sphere = lambda x,y: x**2 + y**2
 
 xl = np.array([-5,-5])
@@ -35,14 +35,15 @@ for i in range(N):
     x[:, i] = xl + (xu - xl) * np.random.rand(D)
     xp[:,i] = x[:,i]
     v[:,i] = 0.5 * np.random.randn(D)
-    fitness[i] = Griewank(x[0, i],x[1,i]) #Funcion Objetivo
+    # --------------> Funcion Objetivo
+    fitness[i] = Rastrigin(x[0, i], x[1, i])
 
-#PSO
-"""
+#-----------------> PSO <--------------
+
 for g in range(G):
 
     for i in range(N):
-        fx = Griewank(x[0, i], x[1, i])
+        fx = Rastrigin(x[0, i], x[1, i])  # --------------> Funcion Objetivo
 
         if fx < fitness[i]:
             xp[:,i] = x[:, i]
@@ -56,7 +57,8 @@ for g in range(G):
 
     f_plot[g] = np.min(fitness)
 
-#CFPSO
+# --------------------> CFPSO <-------------------
+
 """
 w = 0.6
 c1 = 2.1
@@ -68,7 +70,7 @@ k = 2/np.abs(2-phi-np.sqrt(phi**2-4*phi))
 for g in range(G):
 
     for i in range(N):
-        fx = Griewank(x[0, i],x[1,i])
+        fx = Sphere(x[0, i],x[1,i]) #--------------> Funcion Objetivo
 
         if fx < fitness[i]:
             xp[:, i] = x[:, i]
@@ -84,12 +86,13 @@ for g in range(G):
     f_plot[g] = np.min(fitness)
 
 
-#WAPSO
+# -------------------> WAPSO <------------------------
+"""
 """
 for g in range(G):
 
     for i in range(N):
-        fx = Griewank(x[0, i],x[1,i])
+        fx = Griewank(x[0, i], x[1, i])  # --------------> Funcion Objetivo
 
         if fx < fitness[i]:
             xp[:, i] = x[:, i]
@@ -106,7 +109,10 @@ for g in range(G):
     f_plot[g] = np.min(fitness)
 """
 
-print("Mínimo global en x=", xp[0, ig], " y=",xp[1, ig], " f(x,y)=", Griewank(xp[0, ig], xp[1, ig]))
-plot_contour(Griewank, x, xl, xu)
-plot_surf(Griewank, x, xl, xu, ig)
+print("Mínimo global en x=", xp[0, ig], " y=", xp[1, ig], " f(x,y)=", Rastrigin(xp[0, ig], xp[1, ig]))  # --------------> Funcion Objetivo
+plot_contour(Rastrigin, x, xl, xu)  # --------------> Funcion Objetivo
+plot_surf(Rastrigin, x, xl, xu, ig)  # --------------> Funcion Objetivo
 plt.plot(range(G), f_plot)
+plt.title("Convergencia")
+plt.draw()
+plt.show()
