@@ -5,7 +5,7 @@ from Plot_Surf import *
 from IPython import display
 
 #FUNCIONES OBJETIVO
-Griewank = lambda x,y: ((x**2/4000)+(y**2/4000))-(np.cos(x) * np.cos(y/np.sort(2))) + 1
+Griewank = lambda x,y: ((x**2/4000)+(y**2/4000))-(np.cos(x) * np.cos(y/np.sqrt(2))) + 1
 Rastrigin = lambda x,y: 10**2 + x**2 - 10*np.cos(2*np.pi*x) + y**2 - 10*np.cos(2*np.pi*y)
 Sphere = lambda x,y: x**2 + y**2
 
@@ -27,7 +27,7 @@ w_min = 0.1
 x = np.zeros((D,N))
 xp = np.zeros((D,N))
 v = np.zeros((D,N))
-fitness = np.zeros(G)
+fitness = np.zeros(N)
 
 f_plot = np.zeros(G)
 
@@ -35,17 +35,14 @@ for i in range(N):
     x[:, i] = xl + (xu - xl) * np.random.rand(D)
     xp[:,i] = x[:,i]
     v[:,i] = 0.5 * np.random.randn(D)
-    fitness[i] = #Funcion
+    fitness[i] = Griewank(x[0, i],x[1,i]) #Funcion Objetivo
 
 #PSO
-
+"""
 for g in range(G):
-    display.display(plt.gcf())
-    display.clear_output(wait=True)
-    plot_contour("Funcion Objetivo",x,xl,xu)
 
     for i in range(N):
-        fx = #Funcion Objetivo
+        fx = Griewank(x[0, i], x[1, i])
 
         if fx < fitness[i]:
             xp[:,i] = x[:, i]
@@ -69,12 +66,9 @@ phi = c1 + c2
 k = 2/np.abs(2-phi-np.sqrt(phi**2-4*phi))
 
 for g in range(G):
-    display.display(plt.gcf())
-    display.clear_output(wait=True)
-    plot_contour(f, x, xl, xu)
 
     for i in range(N):
-        fx = f(x[0, i], x[1, i])
+        fx = Griewank(x[0, i],x[1,i])
 
         if fx < fitness[i]:
             xp[:, i] = x[:, i]
@@ -83,22 +77,19 @@ for g in range(G):
         ig = np.argmin(fitness)
 
     for i in range(N):
-        v[:, i] = K * v[:, i] + c1 * np.random.rand() * (xp[:, i] - x[:, i]) + \
+        v[:, i] = k * v[:, i] + c1 * np.random.rand() * (xp[:, i] - x[:, i]) + \
             c2 * np.random.rand() * (xp[:, ig] - x[:, i])
         x[:, i] = x[:, i] + v[:, i]
 
     f_plot[g] = np.min(fitness)
-"""
+
 
 #WAPSO
 """
 for g in range(G):
-    display.display(plt.gcf())
-    display.clear_output(wait=True)
-    plot_contour(f, x, xl, xu)
 
     for i in range(N):
-        fx = f(x[0, i], x[1, i])
+        fx = Griewank(x[0, i],x[1,i])
 
         if fx < fitness[i]:
             xp[:, i] = x[:, i]
@@ -115,6 +106,7 @@ for g in range(G):
     f_plot[g] = np.min(fitness)
 """
 
-print("Mínimo global en x=", xp[0, ig], " y=",xp[1, ig], " f(x,y)=", f(xp[0, ig], xp[1, ig]))
-plot_surf(f, x, xl, xu, ig)
+print("Mínimo global en x=", xp[0, ig], " y=",xp[1, ig], " f(x,y)=", Griewank(xp[0, ig], xp[1, ig]))
+plot_contour(Griewank, x, xl, xu)
+plot_surf(Griewank, x, xl, xu, ig)
 plt.plot(range(G), f_plot)
