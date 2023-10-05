@@ -90,27 +90,28 @@ def CFPSO():
 
 # -------------------> WAPSO <------------------------
 
-"""
-for g in range(G):
+def WAPSO():
+    for g in range(G):
 
-    for i in range(N):
-        fx = Griewank(x[0, i], x[1, i])  # --------------> Funcion Objetivo
+        for i in range(N):
+            fx = Sphere(x[0, i], x[1, i])  # --------------> Funcion Objetivo
 
-        if fx < fitness[i]:
-            xp[:, i] = x[:, i]
-            fitness[i] = fx
+            if fx < fitness[i]:
+                xp[:, i] = x[:, i]
+                fitness[i] = fx
 
-    ig = np.argmin(fitness)
-    w = w_max - (g / G) * (w_max - w_min)
+        ig = np.argmin(fitness)
+        w = w_max - (g / G) * (w_max - w_min)
 
 
-    for i in range(N):
-        v[:, i] = w * v[:, i] + c1 * np.random.rand() * (xp[:, i] - x[:, i]) + c2 * np.random.rand() * (xp[:, ig] - x[:, i])
-        x[:, i] = x[:, i] + v[:, i]
+        for i in range(N):
+            v[:, i] = w * v[:, i] + c1 * np.random.rand() * (xp[:, i] - x[:, i]) + c2 * np.random.rand() * (xp[:, ig] - x[:, i])
+            x[:, i] = x[:, i] + v[:, i]
 
-    f_plot[g] = np.min(fitness)
-"""
-ig = CFPSO()
+        f_plot[g] = np.min(fitness)
+    return ig
+
+ig = WAPSO()
 print("Mínimo global en x=", xp[0, ig], " y=", xp[1, ig], " f(x,y)=", Sphere(xp[0, ig], xp[1, ig]))  # --------------> Funcion Objetivo
 plot_contour(Sphere, x, xl, xu)  # --------------> Funcion Objetivo
 plot_surf(Sphere, x, xl, xu, ig)  # --------------> Funcion Objetivo
