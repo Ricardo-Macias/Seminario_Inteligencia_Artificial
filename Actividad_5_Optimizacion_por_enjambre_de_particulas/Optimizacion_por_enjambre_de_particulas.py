@@ -60,35 +60,36 @@ def PSO():
 
 # --------------------> CFPSO <-------------------
 
-"""
-w = 0.6
-c1 = 2.1
-c2 = 2.05
+def CFPSO():
+    w = 0.6
+    c1 = 2.1
+    c2 = 2.05
 
-phi = c1 + c2
-k = 2/np.abs(2-phi-np.sqrt(phi**2-4*phi))
+    phi = c1 + c2
+    k = 2/np.abs(2-phi-np.sqrt(phi**2-4*phi))
 
-for g in range(G):
+    for g in range(G):
 
-    for i in range(N):
-        fx = Sphere(x[0, i],x[1,i]) #--------------> Funcion Objetivo
+        for i in range(N):
+            fx = Sphere(x[0, i],x[1,i]) #--------------> Funcion Objetivo
 
-        if fx < fitness[i]:
-            xp[:, i] = x[:, i]
-            fitness[i] = fx
+            if fx < fitness[i]:
+                xp[:, i] = x[:, i]
+                fitness[i] = fx
 
-        ig = np.argmin(fitness)
+            ig = np.argmin(fitness)
 
-    for i in range(N):
-        v[:, i] = k * v[:, i] + c1 * np.random.rand() * (xp[:, i] - x[:, i]) + \
-            c2 * np.random.rand() * (xp[:, ig] - x[:, i])
-        x[:, i] = x[:, i] + v[:, i]
+        for i in range(N):
+            v[:, i] = k * v[:, i] + c1 * np.random.rand() * (xp[:, i] - x[:, i]) + \
+                c2 * np.random.rand() * (xp[:, ig] - x[:, i])
+            x[:, i] = x[:, i] + v[:, i]
 
-    f_plot[g] = np.min(fitness)
+        f_plot[g] = np.min(fitness)
+    return ig
 
 
 # -------------------> WAPSO <------------------------
-"""
+
 """
 for g in range(G):
 
@@ -109,7 +110,7 @@ for g in range(G):
 
     f_plot[g] = np.min(fitness)
 """
-ig = PSO()
+ig = CFPSO()
 print("Mínimo global en x=", xp[0, ig], " y=", xp[1, ig], " f(x,y)=", Sphere(xp[0, ig], xp[1, ig]))  # --------------> Funcion Objetivo
 plot_contour(Sphere, x, xl, xu)  # --------------> Funcion Objetivo
 plot_surf(Sphere, x, xl, xu, ig)  # --------------> Funcion Objetivo
