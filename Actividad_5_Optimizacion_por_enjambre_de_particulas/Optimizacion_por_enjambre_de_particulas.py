@@ -36,26 +36,27 @@ for i in range(N):
     xp[:,i] = x[:,i]
     v[:,i] = 0.5 * np.random.randn(D)
     # --------------> Funcion Objetivo
-    fitness[i] = Rastrigin(x[0, i], x[1, i])
+    fitness[i] = Sphere(x[0, i], x[1, i])
 
 #-----------------> PSO <--------------
+def PSO():
+    for g in range(G):
 
-for g in range(G):
+        for i in range(N):
+            fx = Sphere(x[0, i], x[1, i])  # --------------> Funcion Objetivo
 
-    for i in range(N):
-        fx = Rastrigin(x[0, i], x[1, i])  # --------------> Funcion Objetivo
-
-        if fx < fitness[i]:
-            xp[:,i] = x[:, i]
-            fitness[i] = fx
+            if fx < fitness[i]:
+                xp[:,i] = x[:, i]
+                fitness[i] = fx
+            
+            ig = np.argmin(fitness)
         
-        ig = np.argmin(fitness)
-    
-    for i in range(N):
-        v[:,i] = w * v[:, i] + c1 * np.random.rand() * (xp[:,i] - x[:, i]) + c2 * np.random.rand() * (xp[:,ig] - x[:, i])
-        x[:, i] = x[:, i] + v[:, i]
+        for i in range(N):
+            v[:,i] = w * v[:, i] + c1 * np.random.rand() * (xp[:,i] - x[:, i]) + c2 * np.random.rand() * (xp[:,ig] - x[:, i])
+            x[:, i] = x[:, i] + v[:, i]
 
-    f_plot[g] = np.min(fitness)
+        f_plot[g] = np.min(fitness)
+    return ig
 
 # --------------------> CFPSO <-------------------
 
@@ -108,10 +109,10 @@ for g in range(G):
 
     f_plot[g] = np.min(fitness)
 """
-
-print("Mínimo global en x=", xp[0, ig], " y=", xp[1, ig], " f(x,y)=", Rastrigin(xp[0, ig], xp[1, ig]))  # --------------> Funcion Objetivo
-plot_contour(Rastrigin, x, xl, xu)  # --------------> Funcion Objetivo
-plot_surf(Rastrigin, x, xl, xu, ig)  # --------------> Funcion Objetivo
+ig = PSO()
+print("Mínimo global en x=", xp[0, ig], " y=", xp[1, ig], " f(x,y)=", Sphere(xp[0, ig], xp[1, ig]))  # --------------> Funcion Objetivo
+plot_contour(Sphere, x, xl, xu)  # --------------> Funcion Objetivo
+plot_surf(Sphere, x, xl, xu, ig)  # --------------> Funcion Objetivo
 plt.plot(range(G), f_plot)
 plt.title("Convergencia")
 plt.draw()
