@@ -34,8 +34,8 @@ x = np.zeros((D,N))
 fitness = np.zeros(N)
 
 for i in range(N):
-    x[:,i] = xl, + (xu - xl) * np.random.rand(D)
-    fitness[i] = Griewank(x[0, i], x[1, i])  # Funcion objetivo
+    x[:, i] = xl + (xu - xl) * np.random.rand(D)
+    fitness[i] = Sphere(x[0, i], x[1, i])  # Funcion objetivo
 
 fx_plot = np.zeros(G)
 
@@ -45,9 +45,6 @@ fx_plot = np.zeros(G)
 # ----------------------------------------------------
 def DE():
     for n in range(G):
-        display.display(plt.gcf())
-        display.clear_output(wait=True)
-        Plot_Contour.plot_contour(Griewank, x, xl, xu)
 
         for i in range(N):
             # Mutación
@@ -77,7 +74,7 @@ def DE():
                     u[j] = x[j, i]
 
             # Selección
-            fitness_u = Griewank(u[0], u[1])
+            fitness_u = Sphere(u[0], u[1])
 
             if fitness_u < fitness[i]:
                 x[:, i] = u
@@ -91,9 +88,6 @@ def DE():
 # ----------------------------------------------------
 def best():
     for n in range(G):
-        display.display(plt.gcf())
-        display.clear_output(wait=True)
-        Plot_Contour.plot_contour(Griewank, x, xl, xu)
 
         for i in range(N):
             # Mutación
@@ -122,7 +116,7 @@ def best():
                     u[j] = x[j, i]
 
             # Selección
-            fitness_u = Griewank(u[0], u[1])
+            fitness_u = Sphere(u[0], u[1])
 
             if fitness_u < fitness[i]:
                 x[:, i] = u
@@ -131,13 +125,10 @@ def best():
         fx_plot[n] = np.min(fitness)
 
 # ----------------------------------------------------
-# -----------> DE CURRENT TO RAND 1 EXP <-------------
+# -----------> DE CURRENT TO best 2 exp <-------------
 # ----------------------------------------------------
-def current_to_rand():
+def current_to_best():
     for n in range(G):
-        display.display(plt.gcf())
-        display.clear_output(wait=True)
-        Plot_Contour.plot_contour(Griewank, x, xl, xu)
 
         for i in range(N):
             # Mutación
@@ -152,8 +143,14 @@ def current_to_rand():
             r3 = r2
             while r3 == r2 or r3 == r1 or r3 == i:
                 r3 = np.random.randint(N)
+            
+            r4 = r3
+            while r4 == r3 or r4 == r2 or r4 == r1 or r4 == i:
+                r3 = np.random.randint(N)
 
-            v = x[:, i] + F * (x[:, r1] - x[:, i]) + F * (x[:, r2] - x[:, r3])
+            best = np.argmin(fitness)
+
+            v = x[:, i] + F * ( x[:,best] - x[:,i] + F *(x[:, r1] - x[:, r2]) + F * (x[:, r3] - x[:, r4]))
 
             # Recombinación
             u = x[:, i].copy()  # vector de prueba
@@ -167,7 +164,7 @@ def current_to_rand():
                 L = L + 1
 
             # Selección
-            fitness_u = Griewank(u[0], u[1])
+            fitness_u = Sphere(u[0], u[1])
 
             if fitness_u < fitness[i]:
                 x[:, i] = u
@@ -175,9 +172,14 @@ def current_to_rand():
 
         fx_plot[n] = np.min(fitness)
 
+current_to_best()
 igb = np.argmin(fitness)
 
 print("Mínimo global en x=", x[0, igb], " y=",
-      x[1, igb], " f(x,y)=", Griewank(x[0, igb], x[1, igb]))
-Plot_Surf.plot_surf(Griewank, x, xl, xu, igb)
+      x[1, igb], " f(x,y)=", Sphere(x[0, igb], x[1, igb]))
+Plot_Contour.plot_contour(Sphere, x, xl, xu)
+Plot_Surf.plot_surf(Sphere, x, xl, xu, igb)
 plt.plot(fx_plot)
+plt.title("Convergencia")
+plt.draw()
+plt.show()
