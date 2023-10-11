@@ -12,6 +12,9 @@ from IPython import display
 #----------> FUNCION OBJETIVO <----------------------
 #----------------------------------------------------
 
+Griewank = lambda x,y: ((x**2/4000)+(y**2/4000))-(np.cos(x)* np.cos(y/np.sqrt(2))) + 1
+Rastrigin = lambda x,y: 10*2 + x**2 + y**2 - 10*np.cos(2*np.pi*x) - 10*np.cos(2*np.pi*y)
+Sphere = lambda x,y: x**2 + y**2
 
 # ----------------------------------------------------
 # ---------------> PARAMETROS <-----------------------
@@ -32,7 +35,7 @@ fitness = np.zeros(N)
 
 for i in range(N):
     x[:,i] = xl, + (xu - xl) * np.random.rand(D)
-    fitness[i] = f(x[0,i],x[1,i]) #Funcion objetivo
+    fitness[i] = Griewank(x[0, i], x[1, i])  # Funcion objetivo
 
 fx_plot = np.zeros(G)
 
@@ -44,7 +47,7 @@ def DE():
     for n in range(G):
         display.display(plt.gcf())
         display.clear_output(wait=True)
-        Plot_Contour.plot_contour(f, x, xl, xu)
+        Plot_Contour.plot_contour(Griewank, x, xl, xu)
 
         for i in range(N):
             # Mutación
@@ -74,7 +77,7 @@ def DE():
                     u[j] = x[j, i]
 
             # Selección
-            fitness_u = f(u[0], u[1])
+            fitness_u = Griewank(u[0], u[1])
 
             if fitness_u < fitness[i]:
                 x[:, i] = u
@@ -90,7 +93,7 @@ def best():
     for n in range(G):
         display.display(plt.gcf())
         display.clear_output(wait=True)
-        Plot_Contour.plot_contour(f, x, xl, xu)
+        Plot_Contour.plot_contour(Griewank, x, xl, xu)
 
         for i in range(N):
             # Mutación
@@ -119,7 +122,7 @@ def best():
                     u[j] = x[j, i]
 
             # Selección
-            fitness_u = f(u[0], u[1])
+            fitness_u = Griewank(u[0], u[1])
 
             if fitness_u < fitness[i]:
                 x[:, i] = u
@@ -134,7 +137,7 @@ def current_to_rand():
     for n in range(G):
         display.display(plt.gcf())
         display.clear_output(wait=True)
-        Plot_Contour.plot_contour(f, x, xl, xu)
+        Plot_Contour.plot_contour(Griewank, x, xl, xu)
 
         for i in range(N):
             # Mutación
@@ -164,7 +167,7 @@ def current_to_rand():
                 L = L + 1
 
             # Selección
-            fitness_u = f(u[0], u[1])
+            fitness_u = Griewank(u[0], u[1])
 
             if fitness_u < fitness[i]:
                 x[:, i] = u
@@ -175,6 +178,6 @@ def current_to_rand():
 igb = np.argmin(fitness)
 
 print("Mínimo global en x=", x[0, igb], " y=",
-      x[1, igb], " f(x,y)=", f(x[0, igb], x[1, igb]))
-Plot_Surf.plot_surf(f, x, xl, xu, igb)
+      x[1, igb], " f(x,y)=", Griewank(x[0, igb], x[1, igb]))
+Plot_Surf.plot_surf(Griewank, x, xl, xu, igb)
 plt.plot(fx_plot)
