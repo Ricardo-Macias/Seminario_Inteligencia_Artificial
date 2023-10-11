@@ -1,9 +1,11 @@
-
+import sys
+sys.path.append(
+    "D:\\Archivos\\Practicas\\7_Semestre\\Seminario_Inteligencia_Artificial")
 
 import matplotlib.pyplot as plt
 import numpy as np
-#from Plot_Surf import *
-#from Plot_Contour import *
+from Actividad_5_Optimizacion_por_enjambre_de_particulas import Plot_Contour
+from Actividad_5_Optimizacion_por_enjambre_de_particulas import Plot_Surf
 from IPython import display
 
 #----------------------------------------------------
@@ -42,7 +44,7 @@ def DE():
     for n in range(G):
         display.display(plt.gcf())
         display.clear_output(wait=True)
-        plot_contour(f, x, xl, xu)
+        Plot_Contour.plot_contour(f, x, xl, xu)
 
         for i in range(N):
             # Mutación
@@ -88,7 +90,7 @@ def best():
     for n in range(G):
         display.display(plt.gcf())
         display.clear_output(wait=True)
-        plot_contour(f, x, xl, xu)
+        Plot_Contour.plot_contour(f, x, xl, xu)
 
         for i in range(N):
             # Mutación
@@ -132,7 +134,7 @@ def current_to_rand():
     for n in range(G):
         display.display(plt.gcf())
         display.clear_output(wait=True)
-        plot_contour(f, x, xl, xu)
+        Plot_Contour.plot_contour(f, x, xl, xu)
 
         for i in range(N):
             # Mutación
@@ -174,5 +176,5 @@ igb = np.argmin(fitness)
 
 print("Mínimo global en x=", x[0, igb], " y=",
       x[1, igb], " f(x,y)=", f(x[0, igb], x[1, igb]))
-plot_surf(f, x, xl, xu, igb)
+Plot_Surf.plot_surf(f, x, xl, xu, igb)
 plt.plot(fx_plot)
