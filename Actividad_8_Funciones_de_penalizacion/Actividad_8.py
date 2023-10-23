@@ -90,8 +90,8 @@ for g in range(G):
     f_plot[g] = np.min(fitness)
 
 print("Mínimo global en x=", xp[0, ig], " y=", xp[1, ig], " f(x,y)=", fp(xp[:,1], xl, xu))  # --------------> Funcion Objetivo
-plot_contour(fp, x, xl, xu)  # --------------> Funcion Objetivo
-plot_surf(fp, x, xl, xu, ig)  # --------------> Funcion Objetivo
+plot_contour(f, x, xl, xu)  # --------------> Funcion Objetivo
+plot_surf(f, x, xl, xu, ig)  # --------------> Funcion Objetivo
 plt.plot(range(G), f_plot)
 plt.title("Convergencia")
 plt.draw()
