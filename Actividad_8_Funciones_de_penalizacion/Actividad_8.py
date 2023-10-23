@@ -1,7 +1,3 @@
-import sys
-sys.path.append(
-    "D:\\Archivos\\Practicas\\7_Semestre\\Seminario_Inteligencia_Artificial")
-
 import matplotlib.pyplot as plt
 import numpy as np
 from Plot_Contour import *
@@ -48,7 +44,7 @@ fp = lambda x, xl, xu: f(x[0], x[1]) + 1000 * penalty(x, xl, xu)
 xl = np.array([-1.5, -3])
 xu = np.array([4,4])
 
-G = 30
+G = 150
 N = 50
 D = 2
 
