@@ -4,8 +4,8 @@ sys.path.append(
 
 import matplotlib.pyplot as plt
 import numpy as np
-from Actividad_5_Optimizacion_por_enjambre_de_particulas import Plot_Contour
-from Actividad_5_Optimizacion_por_enjambre_de_particulas import Plot_Surf
+from Plot_Contour import *
+from Plot_Surf import *
 from IPython import display
 
 # ---------------------------------------
@@ -71,11 +71,11 @@ for i in range(N):
     x[:,i] = xl + (xu - xl) * np.random.rand(D)
     xp[:,i] = x[:,i]
     v[:,i] = 0.5 * np.random.randn(D)
-    fitness[i] = f(x[0, i], x[1, i])
+    fitness[i] = fp(x[:,i], xl, xu)
 
 for g in range(G):
     for i in range(N):
-        fx = f(x[0,i], x[1,i])
+        fx = fp(x[: ,i], xl, xu)
 
         if fx < fitness[i]:
             xp[:,i] = x[:,i]
@@ -89,10 +89,9 @@ for g in range(G):
     
     f_plot[g] = np.min(fitness)
 
-print("Mínimo global en x=", xp[0, ig], " y=", xp[1, ig], " f(x,y)=", f(
-    xp[0, ig], xp[1, ig]))  # --------------> Funcion Objetivo
-Plot_Contour.plot_contour(f, x, xl, xu)  # --------------> Funcion Objetivo
-Plot_Surf.plot_surf(f, x, xl, xu, ig)  # --------------> Funcion Objetivo
+print("Mínimo global en x=", xp[0, ig], " y=", xp[1, ig], " f(x,y)=", fp(xp[:,1], xl, xu))  # --------------> Funcion Objetivo
+plot_contour(fp, x, xl, xu)  # --------------> Funcion Objetivo
+plot_surf(fp, x, xl, xu, ig)  # --------------> Funcion Objetivo
 plt.plot(range(G), f_plot)
 plt.title("Convergencia")
 plt.draw()

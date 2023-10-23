@@ -68,10 +68,12 @@ def Generar_Resultado(q, img_dst, img_ref):
     return outImage
 
 
-img_ref = cv2.imread('ref_1.png')
+img_ref = cv2.imread(
+    'D:\\Archivos\\Practicas\\7_Semestre\\Seminario_Inteligencia_Artificial\\Practica_1\\ref_1.png')
 H, W, _ = img_ref.shape
 
-img_dst = cv2.imread('des.png')
+img_dst = cv2.imread(
+    'D:\\Archivos\\Practicas\\7_Semestre\\Seminario_Inteligencia_Artificial\\Practica_1\\des.png')
 h, w, _ = img_dst.shape
 
 detect = cv2.QRCodeDetector()
@@ -97,7 +99,7 @@ xu = np.array([5, 5, 5,5 ])
 G = 100
 mu = 20 #padres
 l = 40 #hijos
-D = 2
+D = 4
 
 x = np.zeros((D, mu+l))
 sigma = np.zeros((D, mu+l))
@@ -108,7 +110,7 @@ p_plot = np.zeros(G)
 for i in range(mu):
     x[:, i] = xl + (xu - xl) * np.random.rand(D)
     # AQUÍ AGREGAR EL VECTOR SIGMA ADECUADO
-    sigma[:, i] = [, , , ]
+    sigma[:, i] = [.1,.2,.3,.4]
 
     q = x[:, i]
 
@@ -141,7 +143,7 @@ for g in range(G):
 
     r = np.random.normal(0, sigma[:, mu+i], D)
     x[:,mu+i] = x[:,mu+i] + r
-    fitness[mu+i] = f(x[0, mu+i]. x[1, mu+i])
+    fitness[mu+i] = f(x[0, mu+i], x[1, mu+i],x[2,mu+i])
 
    ## ----------------------------------------- ##
 
@@ -156,6 +158,6 @@ q = x[:, 0]
 display.display(plt.gcf())
 display.clear_output(wait=True)
 img = Generar_Resultado(q, img_dst, img_ref)
-cv2_imshow(img)
+plt.imshow(img)
 
 plt.plot(p_plot)
