@@ -3,8 +3,8 @@ sys.path.append(
     "D:\\Archivos\\Practicas\\7_Semestre\\Seminario_Inteligencia_Artificial")
 import matplotlib.pyplot as plt
 import numpy as np
-from Actividad_5_Optimizacion_por_enjambre_de_particulas import Plot_Contour
-from Actividad_5_Optimizacion_por_enjambre_de_particulas import Plot_Surf
+from Actividad_8_Funciones_de_penalizacion import Plot_Contour
+from Actividad_8_Funciones_de_penalizacion import Plot_Surf
 
 # ---------------------------------------
 #           PENALIZACION
@@ -35,12 +35,15 @@ penalty_Sphere = lambda x,xl,xu: Sphere(x[0],x[1]) + 1000 * penalty(x,xl,xu)
 McCormick = lambda x,y: np.sin(x+y) + (x-y) ** 2 - 1.5*x + 2.5*y + 1
 penalty_McCormick = lambda x,xl,xu: McCormick(x[0],x[1]) + 1000 * penalty(x,xl,xu)
 
-xl = np.array([-5, -5])
-xu = np.array([5, 5])
+#xl = np.array([-5, -5])
+#xu = np.array([5, 5])
+
+xl = np.array([-1.5, -3])
+xu = np.array([4, 4])
 
 D = 2
 N = 30
-G = 100
+G = 31
 
 x = np.zeros((D, N))
 fitness = np.zeros(N)
@@ -48,7 +51,7 @@ f_plot = np.zeros(G)
 
 for i in range(N):
     x[:, i] = xl + (xu - xl) * np.random.rand(D)
-    fitness[i] = penalty_Griewank(x[:, i], xl,xu)
+    fitness[i] = penalty_McCormick(x[:, i], xl,xu)
 
 for g in range(G):
 
@@ -64,7 +67,7 @@ for g in range(G):
 
             c[j] = x[j, i] + r * (x[j, t] - Tf * x_mean)
 
-        fc = penalty_Griewank(c,xl,xu)
+        fc = penalty_McCormick(c,xl,xu)
 
         if fc < fitness[i]:
             x[:, i] = c
@@ -86,7 +89,7 @@ for g in range(G):
                 r = np.random.rand()
                 c[j] = x[j, i] + r * (x[j, k] - x[j, i])
 
-        fc = penalty_Griewank(c,xl,xu)
+        fc = penalty_McCormick(c,xl,xu)
 
         if fc < fitness[i]:
             x[:, i] = c
@@ -96,9 +99,9 @@ for g in range(G):
 
 igb = np.argmin(fitness)
 
-print("Mínimo global en x=", x[0, igb], " y=",x[1, igb], " f(x,y)=", penalty_Griewank(x[:, igb],xl,xu))
-Plot_Contour.plot_contour(penalty_Griewank, x, xl, xu)
-Plot_Surf.plot_surf(penalty_Griewank, x, xl, xu, igb)
+print("Mínimo global en x=", x[0, igb], " y=",x[1, igb], " f(x,y)=", penalty_McCormick(x[:,igb],xl,xu))
+Plot_Contour.plot_contour(McCormick, x, xl, xu)
+Plot_Surf.plot_surf(McCormick, x, xl, xu, igb)
 plt.plot(range(G), f_plot)
 plt.title("Convergencia")
 plt.draw()
