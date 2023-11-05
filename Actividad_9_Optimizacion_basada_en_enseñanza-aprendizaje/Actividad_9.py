@@ -21,7 +21,7 @@ def penalty(x, xl, xu):
             z = z + 1
         else:
             z = z + 0
-    return
+    return z
 
 Griewank = lambda x,y: ((x**2/4000)+(y**2/4000)) - (np.cos(x) * np.cos(y/np.sqrt(2))) + 1
 penalty_Griewank = lambda x,xl,xu: Griewank(x[0],x[1]) + 1000 * penalty(x,xl,xu)
@@ -48,7 +48,7 @@ f_plot = np.zeros(G)
 
 for i in range(N):
     x[:, i] = xl + (xu - xl) * np.random.rand(D)
-    fitness[i] = Griewank(x[0, i], x[1, i])
+    fitness[i] = penalty_Griewank(x[:, i], xl,xu)
 
 for g in range(G):
 
@@ -64,7 +64,7 @@ for g in range(G):
 
             c[j] = x[j, i] + r * (x[j, t] - Tf * x_mean)
 
-        fc = Griewank(c[0], c[1])
+        fc = penalty_Griewank(c,xl,xu)
 
         if fc < fitness[i]:
             x[:, i] = c
@@ -86,7 +86,7 @@ for g in range(G):
                 r = np.random.rand()
                 c[j] = x[j, i] + r * (x[j, k] - x[j, i])
 
-        fc = Griewank(c[0], c[1])
+        fc = penalty_Griewank(c,xl,xu)
 
         if fc < fitness[i]:
             x[:, i] = c
@@ -96,9 +96,9 @@ for g in range(G):
 
 igb = np.argmin(fitness)
 
-print("Mínimo global en x=", x[0, igb], " y=",x[1, igb], " f(x,y)=", Griewank(x[0, igb], x[1, igb]))
-Plot_Contour.plot_contour(Griewank, x, xl, xu)
-Plot_Surf.plot_surf(Griewank, x, xl, xu, igb)
+print("Mínimo global en x=", x[0, igb], " y=",x[1, igb], " f(x,y)=", penalty_Griewank(x[:, igb],xl,xu))
+Plot_Contour.plot_contour(penalty_Griewank, x, xl, xu)
+Plot_Surf.plot_surf(penalty_Griewank, x, xl, xu, igb)
 plt.plot(range(G), f_plot)
 plt.title("Convergencia")
 plt.draw()
