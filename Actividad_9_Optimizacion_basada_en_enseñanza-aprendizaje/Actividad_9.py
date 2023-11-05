@@ -6,11 +6,34 @@ import numpy as np
 from Actividad_5_Optimizacion_por_enjambre_de_particulas import Plot_Contour
 from Actividad_5_Optimizacion_por_enjambre_de_particulas import Plot_Surf
 
+# ---------------------------------------
+#           PENALIZACION
+# ---------------------------------------
+
+def penalty(x, xl, xu):
+    D = x.size
+    z = 0
+
+    for j in range(D):
+        if x[j] < xl[j]:
+            z = z + 1
+        elif x[j] > xu[j]:
+            z = z + 1
+        else:
+            z = z + 0
+    return
 
 Griewank = lambda x,y: ((x**2/4000)+(y**2/4000)) - (np.cos(x) * np.cos(y/np.sqrt(2))) + 1
+penalty_Griewank = lambda x,xl,xu: Griewank(x[0],x[1]) + 1000 * penalty(x,xl,xu)
+
 Rastrigin = lambda x,y:10*2 + x**2 + y**2 - 10 * np.cos(2*np.pi*x) - 10*np.cos(2*np.pi*y)
+penalty_Rastrigin = lambda x,xl,xu:  Rastrigin(x[0],x[1]) + 1000 * penalty(x,xl,xu)
+
 Sphere = lambda x,y: x**2 + y**2
+penalty_Sphere = lambda x,xl,xu: Sphere(x[0],x[1]) + 1000 * penalty(x,xl,xu)
+
 McCormick = lambda x,y: np.sin(x+y) + (x-y) ** 2 - 1.5*x + 2.5*y + 1
+penalty_McCormick = lambda x,xl,xu: McCormick(x[0],x[1]) + 1000 * penalty(x,xl,xu)
 
 xl = np.array([-5, -5])
 xu = np.array([5, 5])
