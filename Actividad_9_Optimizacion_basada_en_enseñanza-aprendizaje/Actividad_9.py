@@ -1,23 +1,16 @@
-from Actividad_5_Optimizacion_por_enjambre_de_particulas import Plot_Surf
-from Actividad_5_Optimizacion_por_enjambre_de_particulas import Plot_Contour
-import numpy as np
-import matplotlib.pyplot as plt
 import sys
 sys.path.append(
     "D:\\Archivos\\Practicas\\7_Semestre\\Seminario_Inteligencia_Artificial")
+import matplotlib.pyplot as plt
+import numpy as np
+from Actividad_5_Optimizacion_por_enjambre_de_particulas import Plot_Contour
+from Actividad_5_Optimizacion_por_enjambre_de_particulas import Plot_Surf
 
 
-def Griewank(x, y): return ((x**2/4000)+(y**2/4000)) - \
-    (np.cos(x) * np.cos(y/np.sqrt(2))) + 1
-
-
-def Rastrigin(x, y): return 10*2 + x**2 + y**2 - 10 * \
-    np.cos(2*np.pi*x) - 10*np.cos(2*np.pi*y)
-
-
-def Sphere(x, y): return x**2 + y**2
-def McCormick(x, y): return np.sin(x+y) + (x-y) ** 2 - 1.5*x + 2.5*y + 1
-
+Griewank = lambda x,y: ((x**2/4000)+(y**2/4000)) - (np.cos(x) * np.cos(y/np.sqrt(2))) + 1
+Rastrigin = lambda x,y:10*2 + x**2 + y**2 - 10 * np.cos(2*np.pi*x) - 10*np.cos(2*np.pi*y)
+Sphere = lambda x,y: x**2 + y**2
+McCormick = lambda x,y: np.sin(x+y) + (x-y) ** 2 - 1.5*x + 2.5*y + 1
 
 xl = np.array([-5, -5])
 xu = np.array([5, 5])
@@ -77,7 +70,6 @@ for g in range(G):
 
 igb = np.argmin(fitness)
 
-print("Mínimo global en x=", x[0, igb], " y=",
-      x[1, igb], " f(x,y)=", Griewank(x[0, igb], x[1, igb]))
+print("Mínimo global en x=", x[0, igb], " y=",x[1, igb], " f(x,y)=", Griewank(x[0, igb], x[1, igb]))
 Plot_Surf.plot_surf(Griewank, x, xl, xu, igb)
 Plot_Contour.plot_contour(Griewank, x, xl, xu)
