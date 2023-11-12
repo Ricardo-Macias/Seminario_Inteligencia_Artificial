@@ -1,7 +1,10 @@
+import sys
+sys.path.append(
+    "D:\\Archivos\\Practicas\\7_Semestre\\Seminario_Inteligencia_Artificial")
 import matplotlib.pyplot as plt
 import numpy as np
-from Plot_Surf import plot_surf
-from Plot_Contour import plot_contour
+from Actividad_8_Funciones_de_penalizacion import Plot_Contour
+from Actividad_8_Funciones_de_penalizacion import Plot_Surf
 import math
 
 
@@ -14,7 +17,7 @@ xu = np.array([5, 5])
 
 D = 2
 N = 30
-G = 100
+G = 50
 
 p = 0.8
 l = 1.5
@@ -29,7 +32,6 @@ for i in range(N):
     fitness[i] = f(x[0, i], x[1, i])
 
 for t in range(G):
-    plot_contour(f, x, xl, xu)
 
     igb = np.argmin(fitness)
 
@@ -62,4 +64,6 @@ igb = np.argmin(fitness)
 
 print("Mínimo global en x=", x[0, igb], " y=",
       x[1, igb], " f(x,y)=", f(x[0, igb], x[1, igb]))
-plot_surf(f, x, xl, xu, igb)
+Plot_Contour.plot_contour(f, x, xl, xu)
+Plot_Surf.plot_surf(f, x, xl, xu, igb)
+
