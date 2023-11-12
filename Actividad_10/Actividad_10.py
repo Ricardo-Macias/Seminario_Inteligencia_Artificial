@@ -8,8 +8,9 @@ from Actividad_8_Funciones_de_penalizacion import Plot_Surf
 import math
 
 
-def f(x, y): return (x-2)**2 + (y-2)**2
-# f = lambda x, y: 10*2 + x**2 + y**2 - 10*np.cos(2*np.pi*x) - 10*np.cos(2*np.pi*y)
+Griewank = lambda x,y: ((x**2/4000)+(y**2/4000)) - (np.cos(x) * np.cos(y/np.sqrt(2))) + 1
+Rastrigin = lambda x,y:10*2 + x**2 + y**2 - 10 * np.cos(2*np.pi*x) - 10*np.cos(2*np.pi*y)
+Sphere = lambda x,y: x**2 + y**2
 
 
 xl = np.array([-5, -5])
@@ -29,7 +30,7 @@ fitness = np.zeros(N)
 
 for i in range(N):
     x[:, i] = xl + (xu - xl) * np.random.rand(D)
-    fitness[i] = f(x[0, i], x[1, i])
+    fitness[i] = Griewank(x[0, i], x[1, i])
 
 for t in range(G):
 
@@ -53,7 +54,7 @@ for t in range(G):
 
             y = x[:, i] + np.random.rand() * (x[:, j] - x[:, k])
 
-        fy = f(y[0], y[1])
+        fy = Griewank(y[0], y[1])
 
         if fy < fitness[i]:
             x[:, i] = y
@@ -63,7 +64,7 @@ for t in range(G):
 igb = np.argmin(fitness)
 
 print("Mínimo global en x=", x[0, igb], " y=",
-      x[1, igb], " f(x,y)=", f(x[0, igb], x[1, igb]))
-Plot_Contour.plot_contour(f, x, xl, xu)
-Plot_Surf.plot_surf(f, x, xl, xu, igb)
+      x[1, igb], " f(x,y)=", Griewank(x[0, igb], x[1, igb]))
+Plot_Contour.plot_contour(Griewank, x, xl, xu)
+Plot_Surf.plot_surf(Griewank, x, xl, xu, igb)
 
