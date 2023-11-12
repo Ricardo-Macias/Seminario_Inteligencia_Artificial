@@ -27,6 +27,7 @@ sigma2 = (((math.gamma(1+l))/(l*math.gamma((1+l)/2))) *
 
 x = np.zeros((D, N))
 fitness = np.zeros(N)
+f_plot = np.zeros(G)
 
 for i in range(N):
     x[:, i] = xl + (xu - xl) * np.random.rand(D)
@@ -59,6 +60,8 @@ for t in range(G):
         if fy < fitness[i]:
             x[:, i] = y
             fitness[i] = fy
+    
+    f_plot[t] = np.min(fitness)
 
 
 igb = np.argmin(fitness)
@@ -67,4 +70,8 @@ print("Mínimo global en x=", x[0, igb], " y=",
       x[1, igb], " f(x,y)=", Griewank(x[0, igb], x[1, igb]))
 Plot_Contour.plot_contour(Griewank, x, xl, xu)
 Plot_Surf.plot_surf(Griewank, x, xl, xu, igb)
+plt.plot(range(G), f_plot)
+plt.title("Convergencia")
+plt.draw()
+plt.show()
 
