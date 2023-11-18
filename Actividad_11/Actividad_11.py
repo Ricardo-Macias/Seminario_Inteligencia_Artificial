@@ -16,7 +16,7 @@ xl = np.array([-5, -5])
 xu = np.array([5, 5])
 
 D = 2
-G = 150
+G = 30
 N = 50
 
 beta0 = 0.5  # 0.1, 0.6
@@ -27,6 +27,7 @@ delta = 0.95  # 0.01, 0.95
 
 x = np.zeros((D, N))
 I = np.zeros(N)
+f_plot = np.zeros(G)
 
 for i in range(N):
     x[:, i] = xl + (xu - xl) * np.random.rand(D)
@@ -47,6 +48,7 @@ for g in range(G):
                 I[i] = Griewank(x[0, i], x[1, i])
 
     alpha = delta * alpha
+    f_plot[g] = np.min(I)
 
 igb = np.argmin(I)
 
@@ -54,3 +56,7 @@ print("Mínimo global en x=", x[0, igb], " y=",
       x[1, igb], " f(x,y)=", Griewank(x[0, igb], x[1, igb]))
 Plot_Contour.plot_contour(Griewank, x, xl, xu)
 Plot_Surf.plot_surf(Griewank, x, xl, xu, igb)
+plt.plot(range(G),f_plot)
+plt.title("Convergencia")
+plt.draw()
+plt.show()
