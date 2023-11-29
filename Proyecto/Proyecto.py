@@ -78,36 +78,36 @@ def DE(img, temp, animacion):
             # plt.show()
 
         for count_i in range(n_Pop):
-            #Mutacion
+            # Mutacion
             r1 = count_i
             while r1 == count_i:
                 r1 = np.random.randint(n_Pop)
-            
+
             r2 = r1
             while r2 == r1 or r2 == count_i:
                 r2 = np.random.randint(n_Pop)
-            
-            best = np.argmax(fitness)
 
-            v = x[:,best] + F * (x[:,r1] - x[:,r2])
+            r3 = r1
+            while r3 == r2 or r3 == r1 or r3 == count_i:
+                r3 = np.random.randint(n_Pop)
 
-            #Recombinacion
+            v = x[:, r1] + F * (x[:, r2] - x[:, r3])
+
+            # Recombinacion
             u = np.zeros(dim)
-            k = np.random.randint(dim)
 
             for count_j in range(dim):
-                if np.random.rand() <= Cr or k == count_j:
+                if np.random.rand() <= Cr :
                     u[count_j] = v[count_j].copy()
                 else:
-                    u[count_j] = x[count_j,count_i].copy()
+                    u[count_j] = x[count_j, count_i].copy()
 
-            #Seleccion
+            # Seleccion
 
-            fitness_u = NCC(img_g,temp_g,int(u[0]),int(u[1]))
+            fitness_u = NCC(img_g, temp_g, int(u[0]), int(u[1]))
             if fitness_u > fitness[count_i]:
-                x[:,count_i] = u
+                x[:, count_i] = u
                 fitness[count_i] = fitness_u
-            
 
         best_plot[n] = np.max(fitness)
 
@@ -120,6 +120,7 @@ def DE(img, temp, animacion):
     plt.show()
 
     return p
+
 
 animacion = 1
 
