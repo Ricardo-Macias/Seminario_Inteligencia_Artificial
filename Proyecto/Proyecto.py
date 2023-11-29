@@ -3,7 +3,6 @@ import cv2
 import matplotlib.pyplot as plt
 from IPython import display
 
-
 def NCC(img, temp, x, y):
     H = temp.shape[0]
     W = temp.shape[1]
@@ -62,23 +61,49 @@ def DE(img, temp, animacion):
             plt.imshow(img_2)
 
             for i in range(n_Pop):
-                plt.plot([x[0, i], x[0, i] + temp_W], [x[1, i], x[1, i]], color=(0,1,0), linewidth=3)
-                plt.plot([x[0, i], x[0, i]], [x[1, i], x[1, i] + temp_H], color=(0,1,0), linewidth=3)
-                plt.plot([x[0, i] + temp_W, x[0, i] + temp_W], [x[1, i], x[1, i] + temp_H], color=(0,1,0), linewidth=3)
-                plt.plot([x[0, i], x[0, i] + temp_W], [x[1, i] + temp_H, x[1, i] + temp_H], color=(0,1,0), linewidth=3)
+                plt.plot([x[0, i], x[0, i] + temp_W],
+                         [x[1, i], x[1, i]], color=(0, 1, 0), linewidth=3)
+                plt.plot([x[0, i], x[0, i]], [x[1, i], x[1, i] +
+                         temp_H], color=(0, 1, 0), linewidth=3)
+                plt.plot([x[0, i] + temp_W, x[0, i] + temp_W], [x[1, i],
+                         x[1, i] + temp_H], color=(0, 1, 0), linewidth=3)
+                plt.plot([x[0, i], x[0, i] + temp_W], [x[1, i] + temp_H,
+                         x[1, i] + temp_H], color=(0, 1, 0), linewidth=3)
             plt.show(block=False)
-            plt.pause(.05)
-            #plt.show()
+            plt.pause(0.05)
+            # plt.show()
 
-        for i in range(n_Pop):
-            # Mutación
+        for count_i in range(n_Pop):
+            #Mutacion
+            r1 = count_i
+            while r1 == count_i:
+                r1 = np.random.randint(n_Pop)
+            
+            r2 = r1
+            while r2 == r1 or r2 == count_i:
+                r2 = np.random.randint(n_Pop)
+            
+            best = np.argmax(fitness)
 
+            v = x[:,best] + F * (x[:,r1] - x[:,r2])
 
-            # Recombinación
+            #Recombinacion
+            u = np.zeros(dim)
+            k = np.random.randint(dim)
 
+            for count_j in range(dim):
+                if np.random.rand() <= Cr or k == count_j:
+                    u[count_j] = v[count_j].copy()
+                else:
+                    u[count_j] = x[count_j,count_i].copy()
 
-            # Selección
+            #Seleccion
 
+            fitness_u = NCC(img_g,temp_g,int(u[0]),int(u[1]))
+            if fitness_u > fitness[count_i]:
+                x[:,count_i] = u
+                fitness[count_i] = fitness_u
+            
 
         best_plot[n] = np.max(fitness)
 
@@ -94,8 +119,10 @@ def DE(img, temp, animacion):
 
 animacion = 1
 
-img = cv2.imread('Image_1.bmp')
-temp = cv2.imread('Template.bmp')
+img = cv2.imread(
+    'D:\\Archivos\\Practicas\\7_Semestre\\Seminario_Inteligencia_Artificial\\Proyecto\\Image_1.bmp')
+temp = cv2.imread(
+    'D:\\Archivos\\Practicas\\7_Semestre\\Seminario_Inteligencia_Artificial\\Proyecto\\Template.bmp')
 
 p = DE(img, temp, animacion)
 
@@ -110,7 +137,7 @@ yp = p[1]
 img_2 = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 plt.imshow(img_2)
 plt.plot([xp, xp+temp_W], [yp, yp], 'r', linewidth=4)
-plt.plot([xp, xp], [yp, yp+temp_H],'r', linewidth=4)
-plt.plot([xp+temp_W, xp+temp_W], [yp, yp+temp_H],'r', linewidth=4)
-plt.plot([xp, xp+temp_W], [yp+temp_H, yp+temp_H],'r', linewidth=4)
+plt.plot([xp, xp], [yp, yp+temp_H], 'r', linewidth=4)
+plt.plot([xp+temp_W, xp+temp_W], [yp, yp+temp_H], 'r', linewidth=4)
+plt.plot([xp, xp+temp_W], [yp+temp_H, yp+temp_H], 'r', linewidth=4)
 plt.show()
