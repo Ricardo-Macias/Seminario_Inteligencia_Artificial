@@ -7,15 +7,19 @@ def NCC(img, temp, x, y):
     H = temp.shape[0]
     W = temp.shape[1]
 
+    if x < 0 or y < 0 or x + W > img.shape[1] or y + H > img.shape[0]:
+        return 0.0
+
     sum_img = 0.0
     sum_temp = 0.0
     sum_2 = 0.0
 
     for i in range(W):
         for j in range(H):
-            sum_img = sum_img + float(img[int(y)+j, int(x)+i]) ** 2
-            sum_temp = sum_temp + float(temp[j, i]) ** 2
-            sum_2 = sum_2 + float(img[int(y)+j, int(x)+i]) * float(temp[j, i])
+            if 0 <= int(y)+j < img.shape[0] and 0 <= int(x)+i < img.shape[1]:
+                sum_img = sum_img + float(img[int(y)+j, int(x)+i]) ** 2
+                sum_temp = sum_temp + float(temp[j, i]) ** 2
+                sum_2 = sum_2 + float(img[int(y)+j, int(x)+i]) * float(temp[j, i])
 
     val = sum_2 / (np.sqrt(float(sum_img)) * np.sqrt(float(sum_temp)))
 
