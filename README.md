@@ -8,7 +8,7 @@
 
 ### Actividad 2
 <p>
-  
+  Se realiza un programa que encuentre el mínimo global, se utilizan los metodos de Búsqueda Aleatoria, Hill Climbing con mutación y estrategia evolutiva (1+1)-ES
 </p>
 
 ### Actividad 3
