@@ -63,8 +63,7 @@ xi = [0, 1]
 
 h = .1
 for i in range(100):
-    # Las funciones de display nos ayudan a no estar generando
-    # múltiples imágenes.
+    # Las funciones de display nos ayudan a no estar generando múltiples imágenes.
     display.display(plt.gcf())
     display.clear_output(wait=True)
 
