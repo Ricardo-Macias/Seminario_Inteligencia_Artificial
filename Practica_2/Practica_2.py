@@ -230,3 +230,4 @@ print(T)
 panorama = Crear_Figura_Panoramica(ImgA, ImgB, T)
 
 plt.plot(fx_plot)
+plt.show()
