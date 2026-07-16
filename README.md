@@ -1,8 +1,14 @@
 # Seminario de Solución de Problemas de Inteligencia Artificial 1
 
-Principales librerias utilizadas:
-  - numpy
-  - matplotlib
+Este repositorio contiene las actividades realizadas durante la materia de Seminario de Solucion de Problemas de Inteligencia Artificial 1
+
+Cada actividad implementa una o varios algoritmos vistos en clase utilizando python.
+
+## Tecnologias utilizadas
+
+- Python 3
+- NumPy
+- Matplotlib
 
 ## Actividades
 ### Actividad 1
@@ -54,10 +60,12 @@ Principales librerias utilizadas:
 
 ## Practicas
 
-Las practicas consisten en completar codigo.
+Las practicas consisten en completar partes del código de los algoritmos implementados en clases.
 
 ### Practica 1
 
 ### Practica 2
 
 ## Proyecto
+**Algoritmo utilizado**
+- Evolucion diferencial.
