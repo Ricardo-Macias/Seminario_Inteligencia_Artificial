@@ -1,35 +1,60 @@
 # Seminario de Solución de Problemas de Inteligencia Artificial 1
 
+Principales librerias utilizadas:
+  - numpy
+  - matplotlib
+
 ## Actividades
 ### Actividad 1
-<p>
-  Se implementa el metodo de Newton y el método de gradiente descendiente para encontar el mínimo de una función objetivo f(x). Se implementará un programa en donde se muestre una gráfica en la que se mostrará la función objetivo y el valor óptimo.
-</p>
+
+  - Metodo de Newton.
+  - Metodo de gradiente descendiente.
 
 ### Actividad 2
-<p>
-  Se realiza un programa que encuentre el mínimo global, se utilizan los metodos de Búsqueda Aleatoria, Hill Climbing con mutación y estrategia evolutiva (1+1)-ES
-</p>
+
+- Busqueda aeatoria.
+- Estrategia Evolutivas.
+- Hill Climbing.
 
 ### Actividad 3
 
+- Algoritmo Genetico.
+
 ### Actividad 4
+
+- Estrategia Evolutivas.
 
 ### Actividad 5
 
+- Optimización por enjambre de particulas.
+
 ### Actividad 6
+
+- Evolucion Diferencial.
 
 ### Actividad 7
 
+- Colonia de abejas artificiales.
+
 ### Actividad 8
+
+- Funciones de penalizacion.
 
 ### Actividad 9
 
+- Optimizacion basada en enseansa aprendizaje.
+
 ### Actividad 10
+
+ - Algoritmo de Polinizacíon de la Flor.
 
 ### Actividad 11
 
+- Algoritmo de luciérnaga
+
 ## Practicas
+
+Las practicas consisten en completar codigo.
 
 ### Practica 1
 
