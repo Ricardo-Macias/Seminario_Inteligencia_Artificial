@@ -62,10 +62,6 @@ Cada actividad implementa una o varios algoritmos vistos en clase utilizando pyt
 
 Las practicas consisten en completar partes del código de los algoritmos implementados en clases.
 
-### Practica 1
-
-### Practica 2
-
 ## Proyecto
 **Algoritmo utilizado**
 - Evolucion diferencial.
